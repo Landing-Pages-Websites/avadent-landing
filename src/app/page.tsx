@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingCTA } from "@/components/FloatingCTA";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { StatsSection } from "@/components/sections/StatsSection";
+import { LeadFormSection } from "@/components/sections/LeadFormSection";
 import { PillarSection } from "@/components/sections/PillarSection";
 import { WorkflowSection } from "@/components/sections/WorkflowSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
@@ -27,6 +28,7 @@ export default function Home() {
       <main>
         <HeroSection />
         <StatsSection />
+        <LeadFormSection />
         {PILLARS.map((pillar, i) => (
           <PillarSection key={pillar.anchorId} pillar={pillar} index={i} />
         ))}

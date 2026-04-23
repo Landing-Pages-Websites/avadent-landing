@@ -3,10 +3,10 @@
 /* AvaDent Digital Dental Solutions — Brand tokens (scraped from avadent.com via
  * Firecrawl JS-rendered DOM inspection + visual audit of live hero).
  *
- * Real brand language (NOT indigo + orange — that was wrong):
+ * Real brand language:
  *   Theme:         DARK-DOMINANT HERO + clean white body sections.
- *                  Hero uses a dental-environment photo w/ dark overlay,
- *                  yellow pill CTA. Body sections are white w/ navy H2s.
+ *                  Live avadent.com uses a background VIDEO (hockey_movie_2.mp4)
+ *                  with "Built for Life's Hardest Hits" in Montserrat 800 white.
  *   Primary navy:  #1E3D8E  (h2 color on white, primary button on light)
  *   Deep navy:     #04194e  (dark section backgrounds, dark nav strip)
  *   Near-black:    #0e1216  (hero overlay extreme)
@@ -60,10 +60,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Only set font-family on headings — let Tailwind utilities control weight
+ * and tracking so font-extrabold (800) / font-black (900) work. */
 h1, h2, h3, h4 {
   font-family: var(--font-montserrat), system-ui, sans-serif;
   letter-spacing: -0.01em;
-  font-weight: 700;
 }
 
 /* Smooth scroll + scroll-padding so the fixed header doesn't hide anchor targets */
@@ -86,27 +87,23 @@ html {
   color: var(--color-accent);
 }
 
-/* Hero background — AvaDent pattern: dental photo w/ dark wash overlay */
+/* Hero background — AvaDent pattern: dental-lifestyle photo w/ dark wash.
+ * Uses wf-woman-tablet (real scraped clinical lifestyle photo from avadent.com). */
 .hero-bg-overlay {
   background:
-    linear-gradient(rgba(14, 18, 22, 0.72), rgba(4, 25, 78, 0.78)),
-    url('/images/hero-bg.webp') center/cover no-repeat;
+    linear-gradient(
+      110deg,
+      rgba(4, 25, 78, 0.92) 0%,
+      rgba(4, 25, 78, 0.78) 45%,
+      rgba(14, 18, 22, 0.55) 100%
+    ),
+    url('/images/wf-woman-tablet.webp') center right/cover no-repeat;
 }
 
 .hero-bg-alt {
   background:
     linear-gradient(rgba(14, 18, 22, 0.74), rgba(4, 25, 78, 0.82)),
     url('/images/wf-home-bg.webp') center/cover no-repeat;
-}
-
-/* Yellow pill CTA highlighter (matches live "WATCH IT IN ACTION!" treatment) */
-.pill-highlight {
-  display: inline-block;
-  background: var(--color-accent);
-  color: var(--color-ink-dark);
-  padding: 0.15rem 0.6rem;
-  border-radius: 9999px;
-  font-weight: 800;
 }
 
 /* Big numbered step indicator — matches AvaDent workflow style */
