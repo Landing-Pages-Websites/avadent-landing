@@ -5,7 +5,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingCTA } from "@/components/FloatingCTA";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { StatsSection } from "@/components/sections/StatsSection";
-import { LeadFormSection } from "@/components/sections/LeadFormSection";
+import { ProductShowcaseSection } from "@/components/sections/ProductShowcaseSection";
 import { PillarSection } from "@/components/sections/PillarSection";
 import { WorkflowSection } from "@/components/sections/WorkflowSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
@@ -26,9 +26,12 @@ export default function Home() {
     <>
       <Header />
       <main>
+        {/* Anchors (ordered): #hero → #stats → #products → #chair-time →
+            #no-pop-offs → #precision-fit → #biohygienic → #workflow →
+            #testimonials → #faq → #contact */}
         <HeroSection />
         <StatsSection />
-        <LeadFormSection />
+        <ProductShowcaseSection />
         {PILLARS.map((pillar, i) => (
           <PillarSection key={pillar.anchorId} pillar={pillar} index={i} />
         ))}
