@@ -11,11 +11,13 @@ type Props = {
 /**
  * Per-service/product section per Architect Hard Rule 5b — each benefit pillar
  * gets its own <section> with unique descriptive anchor, H2, ~100-140 words of
- * body copy, its own image, and a dual CTA at the end. Alternates image side
- * based on index for visual rhythm.
+ * body copy, its own image, and a dual CTA at the end.
+ *
+ * Styled to match AvaDent brand: Montserrat 700 H2s in navy (#1E3D8E), Lato
+ * body in muted slate, yellow numeral medallion as accent.
  */
 export function PillarSection({ pillar, index }: Props) {
-  const imageLeft = index % 2 === 1; // 0-index → alternate; first pillar has image RIGHT
+  const imageLeft = index % 2 === 1;
   const altBg = index % 2 === 1;
 
   return (
@@ -28,9 +30,7 @@ export function PillarSection({ pillar, index }: Props) {
       }`}
     >
       <div
-        className={`max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center ${
-          imageLeft ? "" : ""
-        }`}
+        className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center"
       >
         <Reveal
           className={`order-2 ${
@@ -38,16 +38,9 @@ export function PillarSection({ pillar, index }: Props) {
           }`}
         >
           <div className="relative">
-            {/* decorative square stamp */}
             <div
               aria-hidden="true"
-              className={`absolute -top-4 -left-4 w-24 h-24 rounded-xl bg-[var(--color-accent)]/15 hidden md:block ${
-                imageLeft ? "" : ""
-              }`}
-            />
-            <div
-              aria-hidden="true"
-              className="absolute -bottom-5 -right-5 w-32 h-32 rounded-full bg-[var(--color-primary)]/10 hidden md:block"
+              className="absolute -bottom-5 -right-5 w-32 h-32 rounded-full bg-[var(--color-accent)]/15 hidden md:block"
             />
             <div className="relative overflow-hidden rounded-2xl shadow-xl border border-[var(--color-line)] bg-white aspect-[4/3]">
               <Image
@@ -58,8 +51,11 @@ export function PillarSection({ pillar, index }: Props) {
                 sizes="(min-width: 1024px) 520px, 100vw"
               />
             </div>
-            {/* Pillar number medallion */}
-            <div className="absolute -top-3 -right-3 w-14 h-14 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center font-bold text-lg shadow-lg subhead-font">
+            {/* Pillar number medallion — yellow on navy */}
+            <div
+              className="absolute -top-3 -right-3 w-14 h-14 rounded-full bg-[var(--color-navy-deep)] text-[var(--color-accent)] flex items-center justify-center font-extrabold text-lg shadow-lg"
+              style={{ fontFamily: "var(--font-montserrat)" }}
+            >
               0{index + 1}
             </div>
           </div>
@@ -71,18 +67,24 @@ export function PillarSection({ pillar, index }: Props) {
           } space-y-5`}
         >
           <p className="eyebrow">{pillar.label}</p>
-          <h2 className="text-3xl md:text-4xl lg:text-[2.6rem] font-bold text-[var(--color-primary)] leading-[1.1] tracking-tight">
+          <h2
+            className="text-3xl md:text-4xl lg:text-[2.6rem] font-extrabold text-[var(--color-primary)] leading-[1.1] tracking-tight"
+            style={{ fontFamily: "var(--font-montserrat)" }}
+          >
             {pillar.heading}
           </h2>
-          <p className="text-base md:text-lg text-[var(--color-ink)] leading-relaxed">
+          <p
+            className="text-base md:text-lg text-[var(--color-ink-muted)] leading-relaxed"
+            style={{ fontFamily: "var(--font-lato)", fontWeight: 400 }}
+          >
             {pillar.body}
           </p>
           <ul className="space-y-2.5 pt-2">
             {pillar.bullets.map((b, i) => (
               <li key={i} className="flex items-start gap-3">
-                <span className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-[var(--color-accent)]/15 flex items-center justify-center">
+                <span className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-[var(--color-accent)] flex items-center justify-center">
                   <svg
-                    className="w-3 h-3 text-[var(--color-accent)]"
+                    className="w-3 h-3 text-[var(--color-ink-dark)]"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -94,7 +96,10 @@ export function PillarSection({ pillar, index }: Props) {
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                 </span>
-                <span className="text-[15px] md:text-base text-[var(--color-ink)]">
+                <span
+                  className="text-[15px] md:text-base text-[var(--color-ink)]"
+                  style={{ fontFamily: "var(--font-lato)" }}
+                >
                   {b}
                 </span>
               </li>

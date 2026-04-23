@@ -1,68 +1,69 @@
 @import "tailwindcss";
 
-/* AvaDent Digital Dental Solutions — Brand tokens (scraped from avadent.com)
- * Theme: LIGHT body w/ navy-indigo dark sections (matches live site's mixed layout)
- * Primary (deep indigo): #333399 — most frequent text/link color on avadent.com
- * Accent (orange):       #F4A300 — CTA orange from "DOWNLOAD NOW" and store buttons
- * Navy (darker):         #253D91 — button bg, dark section backgrounds
- * Display font: Jura — tech/clinical futuristic feel (avadent.com uses for brand)
- * Subhead font: Montserrat — supports clinical-tech voice
- * Body font: Lato — clean, legible, used across avadent.com
+/* AvaDent Digital Dental Solutions — Brand tokens (scraped from avadent.com via
+ * Firecrawl JS-rendered DOM inspection + visual audit of live hero).
+ *
+ * Real brand language (NOT indigo + orange — that was wrong):
+ *   Theme:         DARK-DOMINANT HERO + clean white body sections.
+ *                  Hero uses a dental-environment photo w/ dark overlay,
+ *                  yellow pill CTA. Body sections are white w/ navy H2s.
+ *   Primary navy:  #1E3D8E  (h2 color on white, primary button on light)
+ *   Deep navy:     #04194e  (dark section backgrounds, dark nav strip)
+ *   Near-black:    #0e1216  (hero overlay extreme)
+ *   Slate:         #1a2e3b  (secondary dark sections)
+ *   Accent yellow: #FFCD2A  (THE signature CTA color — hero pill, nav CTA)
+ *   Accent hover:  #e8ba20
+ *   Body copy:     #576677  (muted slate gray — matches live Lato body text)
+ *
+ * Fonts: Montserrat (700-800 display, often ALL CAPS) + Lato (300-400 body).
  */
 @theme {
-  /* Brand colors */
-  --color-primary: #333399; /* deep indigo — primary brand color */
-  --color-primary-hover: #272780;
-  --color-primary-50: #eeeef8;
-  --color-primary-100: #dcdbf1;
-  --color-primary-200: #b6b5e1;
-  --color-primary-700: #1f1f66;
+  --color-primary: #1e3d8e;       /* navy — H2 headings on white, primary buttons on light */
+  --color-primary-hover: #162f73;
+  --color-primary-50: #eef1fa;
+  --color-primary-100: #d9e0f2;
+  --color-primary-200: #b3c1e4;
+  --color-primary-700: #0f275f;
 
-  --color-navy: #253d91; /* darker navy used for dark sections & buttons */
-  --color-navy-hover: #1c2f73;
-  --color-navy-deep: #1b2a66;
+  --color-navy-deep: #04194e;     /* darkest brand navy — dark section backgrounds */
+  --color-slate: #1a2e3b;
+  --color-ink-dark: #0e1216;
 
-  --color-accent: #f4a300; /* warm orange — CTA accent */
-  --color-accent-hover: #d99100;
-  --color-accent-50: #fff5e0;
-
-  --color-sky: #00adef; /* bright blue micro-accent */
+  --color-accent: #ffcd2a;        /* yellow — THE signature CTA color */
+  --color-accent-hover: #e8ba20;
+  --color-accent-50: #fff8dc;
 
   /* Surface */
   --color-surface: #ffffff;
-  --color-surface-alt: #f5f6fb; /* soft cool neutral */
-  --color-surface-dark: #1b2a66; /* hero / dark sections */
-  --color-ink: #1a1a1a;
-  --color-ink-muted: #55617a;
-  --color-ink-on-dark: rgba(255, 255, 255, 0.86);
-  --color-line: #e3e5ef;
+  --color-surface-alt: #f6f8fb;
+  --color-surface-dark: #04194e;
+  --color-ink: #0e1216;
+  --color-ink-muted: #576677;     /* matches avadent.com Lato body color */
+  --color-ink-on-dark: rgba(255, 255, 255, 0.88);
+  --color-line: #e1e5ec;
 
   /* Fonts (variable set by next/font in layout.tsx) */
-  --font-display: var(--font-jura);
-  --font-subhead: var(--font-montserrat);
+  --font-display: var(--font-montserrat);
   --font-body: var(--font-lato);
 }
 
 :root {
   --background: #ffffff;
-  --foreground: #1a1a1a;
+  --foreground: #0e1216;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-lato), system-ui, sans-serif;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4 {
-  font-family: var(--font-jura), system-ui, sans-serif;
+  font-family: var(--font-montserrat), system-ui, sans-serif;
   letter-spacing: -0.01em;
   font-weight: 700;
-}
-
-.subhead-font {
-  font-family: var(--font-montserrat), system-ui, sans-serif;
 }
 
 /* Smooth scroll + scroll-padding so the fixed header doesn't hide anchor targets */
@@ -71,47 +72,49 @@ html {
   scroll-padding-top: 5rem;
 }
 
-/* Utility: eyebrow label */
+/* Utility: eyebrow label — AvaDent uses ALL CAPS Montserrat for section labels */
 .eyebrow {
-  font-family: var(--font-jura), sans-serif;
-  font-weight: 600;
-  letter-spacing: 0.22em;
+  font-family: var(--font-montserrat), sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   font-size: 0.75rem;
   color: var(--color-primary);
 }
 
 .eyebrow-on-dark {
-  color: #9aa6f2;
+  color: var(--color-accent);
 }
 
-/* Subtle grid texture for dark sections — echoes the tech/engineering feel */
-.bg-grid-navy {
-  background-color: var(--color-surface-dark);
-  background-image:
-    radial-gradient(at 20% 10%, rgba(51, 51, 153, 0.45) 0%, transparent 45%),
-    radial-gradient(at 80% 90%, rgba(0, 173, 239, 0.18) 0%, transparent 55%),
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: auto, auto, 44px 44px, 44px 44px;
+/* Hero background — AvaDent pattern: dental photo w/ dark wash overlay */
+.hero-bg-overlay {
+  background:
+    linear-gradient(rgba(14, 18, 22, 0.72), rgba(4, 25, 78, 0.78)),
+    url('/images/hero-bg.webp') center/cover no-repeat;
 }
 
-/* Diagonal accent strip for section dividers */
-.divider-slant-top {
-  clip-path: polygon(0 3%, 100% 0, 100% 100%, 0 100%);
+.hero-bg-alt {
+  background:
+    linear-gradient(rgba(14, 18, 22, 0.74), rgba(4, 25, 78, 0.82)),
+    url('/images/wf-home-bg.webp') center/cover no-repeat;
 }
 
-.divider-slant-bottom {
-  clip-path: polygon(0 0, 100% 0, 100% 97%, 0 100%);
+/* Yellow pill CTA highlighter (matches live "WATCH IT IN ACTION!" treatment) */
+.pill-highlight {
+  display: inline-block;
+  background: var(--color-accent);
+  color: var(--color-ink-dark);
+  padding: 0.15rem 0.6rem;
+  border-radius: 9999px;
+  font-weight: 800;
 }
 
-/* Subtle puck/medallion stamp for decorative flourishes */
-.brand-stamp {
-  background: radial-gradient(
-    circle at 30% 30%,
-    rgba(244, 163, 0, 0.35),
-    rgba(51, 51, 153, 0.4) 60%,
-    transparent 75%
-  );
-  filter: blur(16px);
+/* Big numbered step indicator — matches AvaDent workflow style */
+.step-number {
+  font-family: var(--font-montserrat), sans-serif;
+  font-weight: 800;
+  font-size: clamp(3rem, 7vw, 5rem);
+  line-height: 1;
+  color: var(--color-accent);
+  letter-spacing: -0.02em;
 }

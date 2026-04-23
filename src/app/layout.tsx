@@ -1,19 +1,14 @@
 import type { Metadata } from "next";
-import { Jura, Montserrat, Lato } from "next/font/google";
+import { Montserrat, Lato } from "next/font/google";
 import Script from "next/script";
 import { QueryParamPersistence } from "@/components/QueryParamPersistence";
 import "./globals.css";
 
-const jura = Jura({
-  variable: "--font-jura",
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
-
+// Real AvaDent brand fonts scraped from avadent.com: Montserrat (700-800 headlines)
+// + Lato (300-400 body). Do NOT swap to Inter/Poppins/Jura.
 const montserrat = Montserrat({
   variable: "--font-montserrat",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
   subsets: ["latin"],
   display: "swap",
 });
@@ -52,7 +47,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${jura.variable} ${montserrat.variable} ${lato.variable} h-full antialiased`}
+      className={`${montserrat.variable} ${lato.variable} h-full antialiased`}
     >
       <head>
         {/* MegaTag — placeholders until Mega Admin site registration completes.

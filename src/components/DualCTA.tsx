@@ -10,11 +10,15 @@ type Props = {
 };
 
 /**
- * Dual CTA — primary form button + secondary phone link, side by side.
- * Used at the end of every content section. AvaDent has a phone on spec
- * (480-275-7144), so Rule #1 dual CTA applies throughout.
+ * Dual CTA — primary form button (yellow pill — AvaDent signature accent) +
+ * secondary phone link, side by side. Used at the end of every content section.
  *
- * Layout: flex-row (NEVER flex-col) — per Technical Hard Rule #8.
+ * AvaDent has a phone on spec (480-275-7144), so Rule #1 dual CTA applies
+ * throughout. Layout: flex-row (NEVER flex-col) — Technical Hard Rule #8.
+ *
+ * Button shape + color matches the live "WATCH IT IN ACTION!" pill on
+ * avadent.com: yellow #FFCD2A, dark near-black text, Montserrat extra-bold,
+ * uppercase, pill (rounded-full).
  */
 export function DualCTA({
   label = BRAND.primaryCtaLabel,
@@ -33,11 +37,8 @@ export function DualCTA({
       >
         <a
           href={href}
-          className={
-            onDark
-              ? "bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white px-7 py-3.5 rounded-lg font-bold text-base transition shadow-lg shadow-black/20 tracking-wide"
-              : "bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white px-7 py-3.5 rounded-lg font-bold text-base transition shadow-sm tracking-wide"
-          }
+          className="inline-flex items-center justify-center bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-ink-dark)] px-7 py-3.5 rounded-full font-extrabold text-[15px] sm:text-base transition shadow-md shadow-black/10 tracking-wide uppercase"
+          style={{ fontFamily: "var(--font-montserrat)" }}
         >
           {label}
         </a>
@@ -45,8 +46,8 @@ export function DualCTA({
           href={BRAND.phoneHref}
           className={
             onDark
-              ? "inline-flex items-center gap-2 border-2 border-white/60 hover:border-white text-white px-6 py-3 rounded-lg font-semibold text-base transition"
-              : "inline-flex items-center gap-2 border-2 border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] px-6 py-3 rounded-lg font-semibold text-base transition"
+              ? "inline-flex items-center gap-2 border-2 border-white/70 hover:border-white hover:bg-white/10 text-white px-6 py-3 rounded-full font-semibold text-base transition"
+              : "inline-flex items-center gap-2 border-2 border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] px-6 py-3 rounded-full font-semibold text-base transition"
           }
           aria-label={`Call ${BRAND.phone}`}
         >

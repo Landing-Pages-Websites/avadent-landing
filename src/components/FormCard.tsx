@@ -142,7 +142,10 @@ export function FormCard({
             </svg>
           </div>
 
-          <h3 className="text-2xl font-bold text-[var(--color-primary)]">
+          <h3
+            className="text-2xl font-extrabold text-[var(--color-primary)]"
+            style={{ fontFamily: "var(--font-montserrat)" }}
+          >
             You&apos;re in, {firstName || "Doctor"}.
           </h3>
           <p className="text-[var(--color-ink-muted)] max-w-sm mx-auto">
@@ -173,7 +176,10 @@ export function FormCard({
   return (
     <div className={wrapperClass}>
       <div className="mb-5">
-        <h3 className="text-2xl sm:text-[1.65rem] font-bold text-[var(--color-primary)] leading-tight">
+        <h3
+          className="text-2xl sm:text-[1.65rem] font-extrabold text-[var(--color-primary)] leading-tight"
+          style={{ fontFamily: "var(--font-montserrat)" }}
+        >
           {heading}
         </h3>
         {subheading && (
@@ -333,7 +339,8 @@ export function FormCard({
         <button
           type="submit"
           disabled={!canSubmit || submitting || submitted}
-          className="w-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] disabled:opacity-60 disabled:cursor-not-allowed text-white px-6 py-3.5 rounded-lg font-bold text-base transition shadow-sm mt-2 tracking-wide"
+          className="w-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] disabled:opacity-60 disabled:cursor-not-allowed text-[var(--color-ink-dark)] px-6 py-3.5 rounded-full font-extrabold text-base transition shadow-md mt-2 tracking-wide uppercase"
+          style={{ fontFamily: "var(--font-montserrat)" }}
         >
           {submitting ? "Submitting…" : BRAND.primaryCtaLabel}
         </button>

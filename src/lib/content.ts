@@ -29,10 +29,10 @@ export const BRAND = {
   name: "AvaDent",
   fullName: "AvaDent Digital Dental Solutions",
   tagline: "Digital dentures that save chair time and never pop off.",
-  heroEyebrow: "For Dental Professionals, Labs & Surgeons",
-  heroHeadline: "The Digital Denture Built to Cut Chair Time in Half.",
+  heroEyebrow: "For Dentists, Surgeons & Dental Labs",
+  heroHeadline: "Built for Life's Hardest Hits.",
   heroSubhead:
-    "AvaDent's monolithic, precision-milled dentures deliver a seated, adjusted prosthesis in 2-3 appointments — not 9-10. Engineered to be 8x stronger, biohygienic, and stored as a digital file for instant replacement.",
+    "Engineered for strength. Built for real life. AvaDent's monolithic, precision-milled dentures deliver a seated, adjusted prosthesis in 2-3 appointments — not 9-10. Up to 8× stronger. No pop-offs. Biohygienic by design.",
   heroTrust: "Trusted by leading clinicians, surgeons, and dental labs worldwide.",
   phone: "(480) 275-7144",
   phoneDigits: "4802757144",
@@ -41,7 +41,7 @@ export const BRAND = {
   primaryCtaLabel: "Get Started with AvaDent",
   primaryCtaShort: "Get Started",
   phoneCtaLabel: "Or call (480) 275-7144",
-  ctaSubLabel: "Free consultation · Onboarding in minutes",
+  ctaSubLabel: "Free consultation · Same-day response",
 } as const;
 
 // ────────────────────────────────────────────────────────────────────
@@ -209,12 +209,14 @@ export const TESTIMONIALS: Testimonial[] = [
     credentials: "Prosthodontics",
     quote:
       "I love AvaDent's monolithic denture because it's stronger, less porous, and fits with very few adjustments. This reduces my chair time and increases my patient satisfaction. What more could you ask for?",
+    image: "/images/doc-dekok.jpg",
   },
   {
     name: "Wendy Auclair Clark, DDS, MS",
     credentials: "Prosthodontics",
     quote:
       "AvaDent's monolithic design delivers on the promise of superior strength. We don't get pop-offs or fractures, even with our over-denture cases. My patients love the precision fit of a digitally designed denture.",
+    image: "/images/doc-clark.jpg",
   },
 ];
 

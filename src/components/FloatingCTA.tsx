@@ -5,8 +5,7 @@ import { BRAND } from "@/lib/content";
 
 /**
  * Floating sticky CTA — form CTA ONLY per Technical Hard Rule #8.
- * No phone in the floating element (phone is fine in header, hero, section CTAs).
- * Appears after user scrolls past hero.
+ * Yellow pill matching the AvaDent brand accent.
  */
 export function FloatingCTA() {
   const [visible, setVisible] = useState(false);
@@ -14,7 +13,6 @@ export function FloatingCTA() {
   useEffect(() => {
     const onScroll = () => {
       const threshold = window.innerHeight * 0.6;
-      // Hide once the user reaches the contact/form section
       const contactEl = document.getElementById("contact");
       const inContact =
         contactEl != null &&
@@ -36,14 +34,15 @@ export function FloatingCTA() {
     >
       <a
         href="#contact"
-        className="inline-flex items-center gap-2 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white px-5 py-3 rounded-full font-bold shadow-lg shadow-[var(--color-accent)]/30 transition tracking-wide"
+        className="inline-flex items-center gap-2 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-ink-dark)] px-6 py-3.5 rounded-full font-extrabold shadow-xl shadow-black/25 transition uppercase tracking-wide text-sm"
+        style={{ fontFamily: "var(--font-montserrat)" }}
       >
         <svg
           className="w-4 h-4"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
           aria-hidden="true"

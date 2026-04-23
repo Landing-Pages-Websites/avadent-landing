@@ -7,3 +7,4 @@ avadent-home.png
 *.brand.json
 assets/
 
+.vercel

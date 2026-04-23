@@ -19,10 +19,16 @@ export function FAQSection() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <Reveal className="text-center mb-10 md:mb-14">
           <p className="eyebrow">Answers for your practice</p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--color-primary)] leading-tight mt-3 tracking-tight">
+          <h2
+            className="text-3xl md:text-4xl lg:text-[2.75rem] font-extrabold text-[var(--color-primary)] leading-[1.1] mt-3 tracking-tight"
+            style={{ fontFamily: "var(--font-montserrat)" }}
+          >
             Frequently Asked Questions
           </h2>
-          <p className="subhead-font text-base md:text-lg text-[var(--color-ink-muted)] mt-4 leading-relaxed">
+          <p
+            className="text-base md:text-lg text-[var(--color-ink-muted)] mt-5 leading-relaxed"
+            style={{ fontFamily: "var(--font-lato)", fontWeight: 300 }}
+          >
             The questions we hear most from dentists, labs, and surgeons before
             they place their first order.
           </p>
@@ -47,7 +53,10 @@ export function FAQSection() {
                     className="w-full text-left px-5 md:px-6 py-4 md:py-5 flex items-center justify-between gap-4"
                     aria-expanded={open}
                   >
-                    <span className="font-semibold text-[var(--color-primary)] text-base md:text-lg leading-snug">
+                    <span
+                      className="font-bold text-[var(--color-primary)] text-base md:text-lg leading-snug"
+                      style={{ fontFamily: "var(--font-montserrat)" }}
+                    >
                       {faq.question}
                     </span>
                     <span
