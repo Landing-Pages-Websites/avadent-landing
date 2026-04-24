@@ -9,10 +9,11 @@ import { BRAND } from "@/lib/content";
  * Landing-page header per landing-page-architect SKILL Rule #3:
  * logo + phone button + CTA button. No nav menu.
  *
- * Matches the real AvaDent header pattern: a thin dark navy info strip
- * above the main white header. CTA is yellow (#FFCD2A) — AvaDent's
- * signature accent — with bold near-black text, matching the live
- * "WATCH IT IN ACTION!" pill on avadent.com.
+ * Dark navy header (matches avadent.com) — required because AvaDent only
+ * publishes a WHITE logo. A white header would make the logo invisible.
+ * If you ever switch to a white header, use a dark-version logo (not
+ * `logo-color.png` which is white-on-transparent). See lp-mistakes.md
+ * (2026-04-24 invisible-logo incident).
  */
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -27,12 +28,12 @@ export function Header() {
   return (
     <header className="fixed top-0 inset-x-0 z-40">
 
-      {/* Main white header — logo + phone button + yellow CTA */}
+      {/* Main dark navy header — white logo (only variant AvaDent ships) is clearly visible */}
       <div
         className={`transition-colors duration-200 ${
           scrolled
-            ? "bg-white/97 backdrop-blur border-b border-[var(--color-line)] shadow-sm"
-            : "bg-white/95 backdrop-blur border-b border-transparent"
+            ? "bg-[var(--color-navy-deep)]/95 backdrop-blur border-b border-white/10 shadow-lg"
+            : "bg-[var(--color-navy-deep)]/90 backdrop-blur border-b border-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-3">
@@ -54,7 +55,7 @@ export function Header() {
           <div className="flex items-center gap-2 sm:gap-3">
             <a
               href={BRAND.phoneHref}
-              className="hidden md:inline-flex items-center gap-2 border-2 border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary-50)] px-4 py-2 rounded-lg font-semibold text-sm transition"
+              className="hidden md:inline-flex items-center gap-2 border-2 border-white/60 text-white hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] px-4 py-2 rounded-lg font-semibold text-sm transition"
               aria-label={`Call ${BRAND.phone}`}
             >
               <svg
