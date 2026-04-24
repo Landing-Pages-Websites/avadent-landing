@@ -13,7 +13,7 @@ import { useCallback, useEffect, useRef } from "react";
 
 const DEFAULTS = {
   CUSTOMER_ID: "65716aff-106d-4048-92b6-14a712525029", // AvaDent Digital Dental Solutions
-  SITE_ID: "__SITE_ID__",
+  SITE_ID: "fcdcd031-ef6f-4865-864a-dbf67a9c35eb",
   ENDPOINT: "https://analytics.gomega.ai/submission/submit",
 };
 

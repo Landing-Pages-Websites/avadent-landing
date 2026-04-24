@@ -54,17 +54,17 @@ export default function RootLayout({
             Per memory/style-preferences.md 2026-04-22, all four elements are required:
             1) <meta name="mega-site-id">, 2) siteId in MEGA_TAG_CONFIG,
             3) data-site-id attribute on optimizer <script>, 4) explicit API endpoints.
-            __SITE_ID__ / __SITE_KEY__ are swapped post-registration. */}
-        <meta name="mega-site-id" content="__SITE_ID__" />
+            fcdcd031-ef6f-4865-864a-dbf67a9c35eb / sk_mocd2zo0_367vq5ml9al are swapped post-registration. */}
+        <meta name="mega-site-id" content="fcdcd031-ef6f-4865-864a-dbf67a9c35eb" />
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.MEGA_TAG_CONFIG={siteKey:"__SITE_KEY__",siteId:"__SITE_ID__",pixelId:"921840557285745"};window.API_ENDPOINT="https://optimizer.gomega.ai";window.TRACKING_API_ENDPOINT="https://events-api.gomega.ai";`,
+            __html: `window.MEGA_TAG_CONFIG={siteKey:"sk_mocd2zo0_367vq5ml9al",siteId:"fcdcd031-ef6f-4865-864a-dbf67a9c35eb",gtmId:"GTM-KKC8NTN6",pixelId:"921840557285745"};window.API_ENDPOINT="https://optimizer.gomega.ai";window.TRACKING_API_ENDPOINT="https://events-api.gomega.ai";`,
           }}
         />
         <script
           id="optimizer-script"
           src="https://cdn.gomega.ai/scripts/optimizer.min.js"
-          data-site-id="__SITE_ID__"
+          data-site-id="fcdcd031-ef6f-4865-864a-dbf67a9c35eb"
           async
         />
       </head>

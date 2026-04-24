@@ -18,7 +18,7 @@ export default function Home() {
   // Layer 2 tracking backup (per memory/style-preferences.md 2026-04-21).
   // MegaTag is loaded server-side in layout.tsx — this is defense in depth.
   useTracking({
-    siteKey: "__SITE_KEY__",
+    siteKey: "sk_mocd2zo0_367vq5ml9al",
     pixelId: "921840557285745",
   });
 
