@@ -10,6 +10,7 @@ export type Pillar = {
   body: string; // 90-140 words
   image: string;
   imageAlt: string;
+  imageFit?: "cover" | "contain"; // contain = product shot on neutral bg, cover = lifestyle
   bullets: string[]; // 3 proof points
 };
 
@@ -91,6 +92,7 @@ export const PILLARS: Pillar[] = [
     image: "/images/wf-woman-tablet.webp",
     imageAlt:
       "Dental professional reviewing digital denture workflow on a tablet",
+    imageFit: "cover",
     bullets: [
       "Records → design → delivery in 2-3 visits",
       "Adaptive Occlusion eliminates most adjustments",
@@ -106,6 +108,7 @@ export const PILLARS: Pillar[] = [
     image: "/images/puck-split.webp",
     imageAlt:
       "Cross-section of AvaDent's monolithic denture puck showing one-piece construction",
+    imageFit: "cover",
     bullets: [
       "No bonded teeth, no pop-offs — ever",
       "Up to 8× more fracture resistance",
@@ -121,6 +124,7 @@ export const PILLARS: Pillar[] = [
     image: "/images/puck-superior.webp",
     imageAlt:
       "AvaDent's patented puck manufacturing process for precision milling",
+    imageFit: "cover",
     bullets: [
       "CNC-milled from one-piece homogenous puck",
       "Zero post-processing distortion or shrinkage",
@@ -133,9 +137,10 @@ export const PILLARS: Pillar[] = [
     heading: "Bacteria & Stain Resistant by Design",
     body:
       "AvaDent's patented puck manufacturing process uses high-pressure cross-linking to produce a puck that is virtually porosity-free. Without the micropores found in conventional acrylic, bacteria and saliva cannot colonize the surface — which dramatically reduces denture breath, staining, and denture-related inflammation. The process is also virtually monomer-free, improving long-term patient safety. It's the difference between a prosthesis that looks and smells brand new after twelve months and one that patients stop wearing. For your hygiene patients, for your immediate dentures, for your hybrid cases — biohygienic construction is a clinical advantage you can feel.",
-    image: "/images/bio-hygienic.webp",
+    image: "/images/bio-hygienic-hires.webp",
     imageAlt:
       "AvaDent bio-hygienic digital denture — porosity-free and stain-resistant",
+    imageFit: "contain",
     bullets: [
       "Virtually porosity-free puck — no bacterial ingress",
       "Reduced denture breath, staining, and inflammation",

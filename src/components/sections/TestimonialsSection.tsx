@@ -47,8 +47,9 @@ export function TestimonialsSection() {
                       src={t.image}
                       alt={t.name}
                       fill
-                      className="object-cover object-top"
-                      sizes="160px"
+                      className="object-cover object-[center_15%]"
+                      sizes="(min-width: 1024px) 160px, 144px"
+                      quality={92}
                     />
                   </div>
                 )}

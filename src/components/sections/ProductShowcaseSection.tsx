@@ -85,22 +85,22 @@ export function ProductShowcaseSection() {
             </div>
           </Reveal>
 
-          {/* Three smaller product cards */}
+          {/* Three smaller product cards — using 800×800 hires source images */}
           {[
             {
-              src: "/images/bio-hygienic.webp",
+              src: "/images/bio-hygienic-hires.webp",
               label: "Complete",
               title: "Bio-Hygienic Denture",
               body: "Monolithic, monomer-free, stain-resistant.",
             },
             {
-              src: "/images/overdenture.webp",
+              src: "/images/overdenture-hires.webp",
               label: "Overdenture",
               title: "Implant-Retained",
               body: "Precision-fit implant overdentures, milled from one puck.",
             },
             {
-              src: "/images/locator-fixed.webp",
+              src: "/images/locator-fixed-hires.png",
               label: "AvaMax",
               title: "LOCATOR FIXED®",
               body: "Screw-retained hybrid prosthesis, titanium framework.",
@@ -108,13 +108,14 @@ export function ProductShowcaseSection() {
           ].map((p, i) => (
             <Reveal key={i} className="md:col-span-4">
               <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-[var(--color-line)] hover:shadow-lg transition h-full flex flex-col">
-                <div className="relative h-48 bg-[var(--color-surface-alt)]">
+                <div className="relative h-56 md:h-64 bg-gradient-to-br from-white to-[var(--color-surface-alt)]">
                   <Image
                     src={p.src}
                     alt={p.title}
                     fill
                     className="object-contain p-4"
-                    sizes="(min-width: 768px) 33vw, 100vw"
+                    sizes="(min-width: 1024px) 420px, (min-width: 768px) 33vw, 100vw"
+                    quality={90}
                   />
                 </div>
                 <div className="p-5 flex-1 flex flex-col">

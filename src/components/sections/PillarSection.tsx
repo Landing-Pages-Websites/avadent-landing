@@ -42,13 +42,20 @@ export function PillarSection({ pillar, index }: Props) {
               aria-hidden="true"
               className="absolute -bottom-5 -right-5 w-32 h-32 rounded-full bg-[var(--color-accent)]/15 hidden md:block"
             />
-            <div className="relative overflow-hidden rounded-2xl shadow-xl border border-[var(--color-line)] bg-white aspect-[4/3]">
+            <div
+              className={`relative overflow-hidden rounded-2xl shadow-xl border border-[var(--color-line)] aspect-[5/4] ${
+                pillar.imageFit === "contain"
+                  ? "bg-gradient-to-br from-[var(--color-surface)] to-[var(--color-surface-alt)]"
+                  : "bg-white"
+              }`}
+            >
               <Image
                 src={pillar.image}
                 alt={pillar.imageAlt}
                 fill
-                className="object-cover"
-                sizes="(min-width: 1024px) 520px, 100vw"
+                className={`${pillar.imageFit === "contain" ? "object-contain p-6 md:p-10" : "object-cover"}`}
+                sizes="(min-width: 1024px) 560px, 100vw"
+                quality={90}
               />
             </div>
             {/* Pillar number medallion — yellow on navy */}
