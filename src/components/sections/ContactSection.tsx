@@ -31,32 +31,20 @@ export function ContactSection() {
             workflow questions — so you can place your first case on your terms.
           </p>
 
-          <div className="grid sm:grid-cols-2 gap-4 pt-2">
-            <div className="bg-white/5 backdrop-blur rounded-xl border border-white/10 p-5">
+          <div className="pt-2">
+            <div className="bg-white/5 backdrop-blur rounded-xl border border-white/10 p-5 sm:p-6 max-w-md">
               <p className="eyebrow eyebrow-on-dark text-[11px]">
                 Prefer to talk?
               </p>
               <a
                 href={BRAND.phoneHref}
-                className="text-2xl font-extrabold text-white hover:text-[var(--color-accent)] transition mt-2 block"
+                className="text-2xl sm:text-3xl font-extrabold text-white hover:text-[var(--color-accent)] transition mt-2 block"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
                 {BRAND.phone}
               </a>
               <p className="text-sm text-white/60 mt-1">
-                AvaDent customer service
-              </p>
-            </div>
-            <div className="bg-white/5 backdrop-blur rounded-xl border border-white/10 p-5">
-              <p className="eyebrow eyebrow-on-dark text-[11px]">Email us</p>
-              <p
-                className="text-base font-bold text-white mt-2 break-words"
-                style={{ fontFamily: "var(--font-montserrat)" }}
-              >
-                {BRAND.email}
-              </p>
-              <p className="text-sm text-white/60 mt-1">
-                Replies within one business day
+                AvaDent customer service — available during business hours
               </p>
             </div>
           </div>

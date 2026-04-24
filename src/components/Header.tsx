@@ -26,34 +26,6 @@ export function Header() {
 
   return (
     <header className="fixed top-0 inset-x-0 z-40">
-      {/* Thin dark info strip — matches live avadent.com pattern (phone, email) */}
-      <div
-        className={`bg-[var(--color-navy-deep)] text-white/80 text-xs transition-all duration-200 overflow-hidden ${
-          scrolled ? "h-0 opacity-0" : "h-8 opacity-100"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-8 flex items-center justify-end gap-5">
-          <a
-            href={BRAND.phoneHref}
-            className="hidden sm:inline-flex items-center gap-1.5 hover:text-[var(--color-accent)] transition"
-          >
-            <svg
-              className="w-3 h-3"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-            </svg>
-            {BRAND.phone}
-          </a>
-          <span className="hidden md:inline text-white/70">{BRAND.email}</span>
-        </div>
-      </div>
 
       {/* Main white header — logo + phone button + yellow CTA */}
       <div
@@ -63,7 +35,7 @@ export function Header() {
             : "bg-white/95 backdrop-blur border-b border-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-3">
           <Link
             href="#hero"
             className="flex items-center gap-2 group"
@@ -72,9 +44,9 @@ export function Header() {
             <Image
               src="/images/logo-color.png"
               alt="AvaDent Digital Dental Solutions"
-              width={180}
-              height={48}
-              className="h-9 sm:h-11 w-auto object-contain"
+              width={260}
+              height={72}
+              className="h-12 sm:h-14 md:h-16 w-auto object-contain"
               priority
             />
           </Link>
