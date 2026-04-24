@@ -87,17 +87,20 @@ html {
   color: var(--color-accent);
 }
 
-/* Hero background — AvaDent pattern: dental-lifestyle photo w/ dark wash.
- * Uses wf-woman-tablet (real scraped clinical lifestyle photo from avadent.com). */
+/* Hero background — AvaDent pattern: patient-outcome lifestyle photo w/ dark navy wash.
+ * Uses hero-woman.webp (1920×800 landscape — fits viewport without aggressive zoom).
+ * Previously used wf-woman-tablet.webp (662×800 portrait) which was too zoomed in
+ * when forced to cover a full-width hero. */
 .hero-bg-overlay {
   background:
     linear-gradient(
-      110deg,
-      rgba(4, 25, 78, 0.92) 0%,
-      rgba(4, 25, 78, 0.78) 45%,
-      rgba(14, 18, 22, 0.55) 100%
+      100deg,
+      rgba(4, 25, 78, 0.94) 0%,
+      rgba(4, 25, 78, 0.80) 40%,
+      rgba(14, 18, 22, 0.50) 75%,
+      rgba(14, 18, 22, 0.30) 100%
     ),
-    url('/images/wf-woman-tablet.webp') center right/cover no-repeat;
+    url('/images/hero-woman.webp') center center/cover no-repeat;
 }
 
 .hero-bg-alt {

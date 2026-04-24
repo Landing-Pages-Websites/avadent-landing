@@ -1,11 +1,11 @@
-import Image from "next/image";
 import { TESTIMONIALS } from "@/lib/content";
 import { DualCTA } from "@/components/DualCTA";
 import { Reveal } from "@/components/Reveal";
 
 /**
- * Testimonials — clean white section with navy H2, four real doctor cards
- * in a 2x2 grid (all now have real headshots from avadent.com).
+ * Testimonials — clean white section with navy H2. Four real doctor
+ * quotes from avadent.com in a 2×2 grid. NO headshots — per Anthony
+ * 2026-04-24, we lead with the words and credentials, not portraits.
  */
 export function TestimonialsSection() {
   return (
@@ -32,64 +32,51 @@ export function TestimonialsSection() {
         </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-          {TESTIMONIALS.map((t, i) => (
-            <Reveal key={i}>
-              <div
-                className={`h-full rounded-2xl shadow-sm border overflow-hidden flex ${
-                  i === 1
-                    ? "bg-[var(--color-navy-deep)] border-[var(--color-navy-deep)] text-white"
-                    : "bg-[var(--color-surface-alt)] border-[var(--color-line)]"
-                }`}
-              >
-                {t.image && (
-                  <div className="relative w-28 sm:w-36 md:w-40 flex-shrink-0">
-                    <Image
-                      src={t.image}
-                      alt={t.name}
-                      fill
-                      className="object-cover object-[center_15%]"
-                      sizes="(min-width: 1024px) 160px, 144px"
-                      quality={92}
-                    />
-                  </div>
-                )}
-                <div className="flex-1 p-5 md:p-6 flex flex-col">
-                  <Quote
-                    accent={i === 1 ? "yellow-on-dark" : "primary"}
-                  />
+          {TESTIMONIALS.map((t, i) => {
+            const onDark = i === 1;
+            return (
+              <Reveal key={i}>
+                <div
+                  className={`h-full rounded-2xl shadow-sm border overflow-hidden p-6 md:p-8 flex flex-col ${
+                    onDark
+                      ? "bg-[var(--color-navy-deep)] border-[var(--color-navy-deep)] text-white"
+                      : "bg-[var(--color-surface-alt)] border-[var(--color-line)]"
+                  }`}
+                >
+                  <Quote onDark={onDark} />
                   <p
-                    className={`text-[15px] leading-relaxed mt-3 flex-1 ${
-                      i === 1 ? "text-white/90" : "text-[var(--color-ink)]"
+                    className={`text-lg md:text-xl leading-relaxed mt-5 flex-1 ${
+                      onDark ? "text-white/95" : "text-[var(--color-ink)]"
                     }`}
                     style={{ fontFamily: "var(--font-lato)" }}
                   >
-                    {t.quote}
+                    &ldquo;{t.quote}&rdquo;
                   </p>
                   <div
-                    className={`mt-5 pt-4 border-t ${
-                      i === 1 ? "border-white/15" : "border-[var(--color-line)]"
+                    className={`mt-6 pt-5 border-t ${
+                      onDark ? "border-white/15" : "border-[var(--color-line)]"
                     }`}
                   >
                     <div
-                      className={`font-bold text-sm md:text-[15px] ${
-                        i === 1 ? "text-white" : "text-[var(--color-primary)]"
+                      className={`font-bold text-base ${
+                        onDark ? "text-white" : "text-[var(--color-primary)]"
                       }`}
                       style={{ fontFamily: "var(--font-montserrat)" }}
                     >
                       {t.name}
                     </div>
                     <div
-                      className={`text-xs mt-0.5 ${
-                        i === 1 ? "text-white/70" : "text-[var(--color-ink-muted)]"
+                      className={`text-xs mt-1 uppercase tracking-wider ${
+                        onDark ? "text-[var(--color-accent)]" : "text-[var(--color-ink-muted)]"
                       }`}
                     >
                       {t.credentials}
                     </div>
                   </div>
                 </div>
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            );
+          })}
         </div>
 
         <Reveal>
@@ -100,16 +87,10 @@ export function TestimonialsSection() {
   );
 }
 
-const Quote = ({
-  accent = "primary",
-}: {
-  accent?: "primary" | "yellow-on-dark";
-}) => (
+const Quote = ({ onDark = false }: { onDark?: boolean }) => (
   <svg
-    className={`w-8 h-8 ${
-      accent === "yellow-on-dark"
-        ? "text-[var(--color-accent)]"
-        : "text-[var(--color-accent)]"
+    className={`w-10 h-10 flex-shrink-0 ${
+      onDark ? "text-[var(--color-accent)]" : "text-[var(--color-accent)]"
     }`}
     viewBox="0 0 24 24"
     fill="currentColor"
