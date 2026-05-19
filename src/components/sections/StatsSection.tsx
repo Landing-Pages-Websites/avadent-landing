@@ -57,10 +57,11 @@ export function StatsSection() {
             className="text-base md:text-lg text-[var(--color-ink-muted)] mt-5 leading-relaxed"
             style={{ fontFamily: "var(--font-lato)", fontWeight: 300 }}
           >
-            AvaDent has manufactured more monolithic digital dentures than any
-            other lab in the world. Our patented cross-link puck, AI-assisted
-            design software, and precision milling produce a prosthesis that
-            seats on the first try — and doesn&apos;t come back for adjustments.
+            AvaDent has manufactured more monolithic digital dentures than
+            anyone in the world. Our patented cross-linked puck material,
+            AI-assisted design software, and precision milling technology
+            create a prosthesis that seats accurately the first time and is
+            engineered to minimize adjustments and remakes.
           </p>
           <DualCTA />
         </Reveal>

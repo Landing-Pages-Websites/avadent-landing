@@ -7,6 +7,8 @@ type Props = {
   className?: string;
   href?: string;
   showSubLabel?: boolean;
+  /** Tighter top margin — used in the hero where above-the-fold space is at a premium. */
+  tight?: boolean;
 };
 
 /**
@@ -27,13 +29,15 @@ export function DualCTA({
   className = "",
   href = "#contact",
   showSubLabel = false,
+  tight = false,
 }: Props) {
   const onDark = variant === "onDark";
   const justify = align === "start" ? "justify-start" : "justify-center";
+  const topMargin = tight ? "mt-4 md:mt-5" : "mt-10";
   return (
     <div className={`${className}`}>
       <div
-        className={`flex flex-wrap items-center ${justify} gap-3 sm:gap-4 mt-10`}
+        className={`flex flex-wrap items-center ${justify} gap-3 sm:gap-4 ${topMargin}`}
       >
         <a
           href={href}

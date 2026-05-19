@@ -20,7 +20,7 @@ export function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative hero-bg-overlay text-white pt-40 pb-24 md:pt-44 md:pb-28 lg:pt-44 lg:pb-32 min-h-[92vh] flex items-center overflow-hidden"
+      className="relative hero-bg-overlay text-white pt-24 pb-12 md:pt-28 md:pb-16 lg:pt-28 lg:pb-20 min-h-[88vh] flex items-center overflow-hidden"
     >
       {/* Top yellow accent hairline */}
       <div
@@ -33,9 +33,9 @@ export function HeroSection() {
         className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-white pointer-events-none z-10"
       />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-10 lg:gap-14 items-center w-full">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-6 lg:gap-12 items-center w-full">
         {/* LEFT — copy column */}
-        <div className="lg:col-span-7 space-y-6">
+        <div className="lg:col-span-7 space-y-4 md:space-y-5">
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur border border-white/20 rounded-full px-4 py-1.5">
             <span
               className="w-2 h-2 rounded-full bg-[var(--color-accent)]"
@@ -46,22 +46,22 @@ export function HeroSection() {
             </span>
           </div>
 
-          <h1 className="text-[2.75rem] sm:text-6xl lg:text-[4.75rem] xl:text-[5.25rem] leading-[0.95] font-black text-white tracking-tight">
-            Built for Life&apos;s{" "}
-            <span className="text-[var(--color-accent)] italic">
-              Hardest Hits.
-            </span>
+          <h1 className="text-[3.25rem] sm:text-7xl lg:text-[5.25rem] xl:text-[5.75rem] leading-[0.95] font-black text-white tracking-tight">
+            Built{" "}
+            <span className="text-[var(--color-accent)] italic">Different</span>
           </h1>
 
-          <p className="text-lg lg:text-xl text-white/85 leading-relaxed max-w-xl font-light">
-            Monolithic, precision-milled digital dentures delivered in{" "}
-            <span className="font-bold text-white">2-3 appointments</span> — not
-            9-10. Up to{" "}
-            <span className="font-bold text-[var(--color-accent)]">
-              8× stronger
-            </span>
-            . No pop-offs. Biohygienic by design.
-          </p>
+          <div className="space-y-2 max-w-xl">
+            <p className="text-base md:text-lg lg:text-xl text-white/85 leading-snug font-light">
+              Digital dentistry delivered by the team that invented the
+              category.
+            </p>
+            <p className="text-base md:text-lg lg:text-xl leading-snug">
+              <span className="font-bold text-[var(--color-accent)]">
+                No pop-offs. Biohygienic by design.
+              </span>
+            </p>
+          </div>
 
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-white/85 pt-1">
             <Badge>Trusted by thousands of clinicians</Badge>
@@ -72,6 +72,7 @@ export function HeroSection() {
           <DualCTA
             variant="onDark"
             align="start"
+            tight
             label={BRAND.primaryCtaLabel}
           />
         </div>

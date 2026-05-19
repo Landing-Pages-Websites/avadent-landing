@@ -88,7 +88,7 @@ export const PILLARS: Pillar[] = [
     label: "Chair Time",
     heading: "Save 6-7 Appointments Per Case",
     body:
-      "Traditional dentures take 9-10 appointments — records, try-ins, adjustments, remakes. AvaDent's digital workflow compresses the entire process into just 2-3 seated appointments, because your records are digitized, the design is CAD-verified against the original file, and our Adaptive Occlusion delivers a predictable fit the first time. Practices routinely tell us they've reclaimed full days per week for higher-value procedures, while their patients get a finished prosthesis in a fraction of the time. Less chair time. Fewer remakes. More room on your schedule for the cases that move your practice forward.",
+      "Traditional dentures take up to 9-10 appointments with records, try-ins, adjustments, and remakes. AvaDent's digital workflow compresses the entire process into just 2-3 efficient appointments, because your records are digitized, the design is CAD-verified against the original file, and our Adaptive Occlusion software delivers a predictable fit the very first time. Practices routinely tell us they've reclaimed full days per week for higher-value procedures, while their patients get a finished prosthesis in a fraction of the time. Less chair time. Fewer remakes. More room on your schedule for the cases that move your practice forward.",
     image: "/images/wf-woman-tablet.webp",
     imageAlt:
       "Dental professional reviewing digital denture workflow on a tablet",
@@ -112,7 +112,7 @@ export const PILLARS: Pillar[] = [
     bullets: [
       "No bonded teeth, no pop-offs — ever",
       "Up to 8× more fracture resistance",
-      "Works on Class 1, 2, 3, overdentures, and hybrids",
+      "Works on Class 1, 2, 3, patients",
     ],
   },
   {
@@ -136,7 +136,7 @@ export const PILLARS: Pillar[] = [
     label: "Biohygienic",
     heading: "Bacteria & Stain Resistant by Design",
     body:
-      "AvaDent's patented puck manufacturing process uses high-pressure cross-linking to produce a puck that is virtually porosity-free. Without the micropores found in conventional acrylic, bacteria and saliva cannot colonize the surface — which dramatically reduces denture breath, staining, and denture-related inflammation. The process is also virtually monomer-free, improving long-term patient safety. It's the difference between a prosthesis that looks and smells brand new after twelve months and one that patients stop wearing. For your hygiene patients, for your immediate dentures, for your hybrid cases — biohygienic construction is a clinical advantage you can feel.",
+      "AvaDent's patented puck manufacturing process uses high-pressure cross-link material to produce a puck that is virtually porosity-free. Without the micropores found in conventional acrylic, bacteria and saliva cannot colonize the surface, which dramatically reduces denture breath, staining, and denture-related inflammation. The process is also virtually monomer-free, improving long-term patient safety. It's the difference between a prosthesis that looks and smells brand new after twelve months and one that patients stop wearing. For your hygiene patients, for your immediate dentures, for your hybrid cases, biohygienic construction is a clinical advantage you can see, feel and not smell.",
     image: "/images/bio-hygienic-hires.webp",
     imageAlt:
       "AvaDent bio-hygienic digital denture — porosity-free and stain-resistant",
