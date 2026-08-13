@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useMegaLeadForm } from "@/hooks/useMegaLeadForm";
 import {
   BUSINESS_TYPES,
@@ -42,6 +42,10 @@ function formatPhone(value: string): string {
 
 const isValidEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 
+const SUBMIT_ERROR_MESSAGE =
+  "Something went wrong sending your request. Please try again, or call us at " +
+  BRAND.phone + ".";
+
 const ChevronDown = ({ onDark = false }: { onDark?: boolean }) => (
   <svg
     className={`w-5 h-5 ${
@@ -76,7 +80,10 @@ export function FormCard({
 
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const inFlightRef = useRef(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const phoneDigits = phone.replace(/\D/g, "");
   const phoneValid = phoneDigits.length === 10;
@@ -88,14 +95,14 @@ export function FormCard({
     businessType.length > 0 &&
     monthlyVolume.length > 0;
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (submitting || submitted) return; // guard against duplicate submits
+  async function doSubmit() {
+    if (inFlightRef.current || submitting || submitted) return;
     if (!canSubmit) return;
-    setError(null);
+    inFlightRef.current = true;
+    setSubmitError(null);
     setSubmitting(true);
     try {
-      await submit({
+      const res = await submit({
         firstName: firstName.trim(),
         lastName: lastName.trim(),
         email: email.trim(),
@@ -103,12 +110,24 @@ export function FormCard({
         businessType,
         monthlyVolume,
       });
+      // A 2xx whose body is not {ok:true} is still a dropped lead. Only a
+      // confirmed success shows the thank-you card and fires the conversion.
+      if (res?.ok !== true) {
+        throw new Error("Submission not confirmed by server.");
+      }
+      // The MEGA optimizer converts on the native submit DOM event. Dispatch it
+      // ONLY on confirmed success so a dropped lead never bills a conversion.
+      formRef.current?.dispatchEvent(
+        new Event("submit", { bubbles: true, cancelable: true }),
+      );
+      setSubmitted(true);
     } catch (err) {
       console.error("Form submission failed:", err);
-      setError("Something went wrong on our end — we also got your info.");
+      // The visitor is fine; the LEAD would be dropped. Surface a retryable error,
+      // keep the form intact, and fire NO conversion.
+      setSubmitError(SUBMIT_ERROR_MESSAGE);
     } finally {
-      // Per builder Hard Rule #12 — even on error, show thank-you. Never strand.
-      setSubmitted(true);
+      inFlightRef.current = false;
       setSubmitting(false);
     }
   }
@@ -162,12 +181,6 @@ export function FormCard({
             </a>
             .
           </p>
-
-          {error && (
-            <p className="text-xs text-[var(--color-ink-muted)]">
-              (Note: {error})
-            </p>
-          )}
         </div>
       </div>
     );
@@ -189,7 +202,20 @@ export function FormCard({
         )}
       </div>
 
-      <form onSubmit={handleSubmit} noValidate className="space-y-3.5">
+      <form
+        ref={formRef}
+        onSubmit={(e) => e.preventDefault()}
+        noValidate
+        className="space-y-3.5"
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && (e.target as HTMLElement).tagName !== "TEXTAREA") {
+            e.preventDefault();
+            const f = formRef.current;
+            if (f && !f.checkValidity()) { f.reportValidity(); return; }
+            void doSubmit();
+          }
+        }}
+      >
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           <div>
             <label htmlFor={`fn-${idSuffix}`} className="sr-only">
@@ -336,8 +362,23 @@ export function FormCard({
           </div>
         </div>
 
+        {submitError && (
+          <p
+            role="alert"
+            aria-live="polite"
+            className="rounded-lg border border-red-300 bg-[#fef3f2] px-3.5 py-2.5 text-sm font-semibold !text-[#b91c1c]"
+          >
+            {submitError}
+          </p>
+        )}
+
         <button
-          type="submit"
+          type="button"
+          onClick={() => {
+            const f = formRef.current;
+            if (f && !f.checkValidity()) { f.reportValidity(); return; }
+            void doSubmit();
+          }}
           disabled={!canSubmit || submitting || submitted}
           className="w-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] disabled:opacity-60 disabled:cursor-not-allowed text-[var(--color-ink-dark)] px-6 py-3.5 rounded-full font-extrabold text-base transition shadow-md mt-2 tracking-wide uppercase"
           style={{ fontFamily: "var(--font-montserrat)" }}
