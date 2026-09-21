@@ -372,6 +372,14 @@ export function FormCard({
           </p>
         )}
 
+        {/*
+          Fail-closed by design — do NOT change this to a raw type="submit".
+          The optimizer converts on the native submit DOM event, so this button
+          stays type="button": it validates first, POSTs to the lead API, and
+          only dispatches submit after a confirmed {ok:true} (see doSubmit).
+          A raw type="submit" would fire the conversion before the API confirms,
+          billing dropped leads. This comment documents the intentional pattern.
+        */}
         <button
           type="button"
           onClick={() => {
