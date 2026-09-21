@@ -19,6 +19,12 @@ export type FAQ = {
   answer: string;
 };
 
+export type OpsBenefit = {
+  key: string;
+  title: string;
+  body: string;
+};
+
 export type Testimonial = {
   name: string;
   credentials: string;
@@ -29,12 +35,12 @@ export type Testimonial = {
 export const BRAND = {
   name: "AvaDent",
   fullName: "AvaDent Digital Dental Solutions",
-  tagline: "Digital dentures that save chair time and never pop off.",
-  heroEyebrow: "For Dentists, Surgeons & Dental Labs",
-  heroHeadline: "Built for Life's Hardest Hits.",
+  tagline: "The digital denture program that performs consistently across every location.",
+  heroEyebrow: "For Multi-Location Groups, Practices & Labs",
+  heroHeadline: "One Program. Every Location.",
   heroSubhead:
-    "Engineered for strength. Built for real life. AvaDent's monolithic, precision-milled dentures deliver a seated, adjusted prosthesis in 2-3 appointments — not 9-10. Up to 8× stronger. No pop-offs. Biohygienic by design.",
-  heroTrust: "Trusted by leading clinicians, surgeons, and dental labs worldwide.",
+    "AvaDent is the digital denture program multi-location groups run to standardize fit, quality, and turnaround at every chair. Monolithic, precision-milled prostheses delivered in 2-3 appointments — not 9-10. Up to 8× stronger. No pop-offs. Biohygienic by design.",
+  heroTrust: "One denture standard across every location — same records, same design protocol, same QC.",
   phone: "(480) 275-7144",
   phoneDigits: "4802757144",
   phoneHref: "tel:+14802757144",
@@ -73,10 +79,52 @@ export const VOLUME_OPTIONS = [
 
 export const STATS: { value: string; label: string }[] = [
   { value: "2-3", label: "Appointments to deliver a finished denture" },
-  { value: "8×", label: "Stronger than conventional acrylic dentures" },
+  { value: "Up to 8×", label: "Stronger than conventional acrylic dentures" },
   { value: "Zero", label: "Pop-offs — monolithic, one-piece construction" },
-  { value: "100%", label: "Digital file stored for instant replacement" },
+  { value: "100%", label: "Digital file stored for exact re-mills" },
 ];
+
+// ────────────────────────────────────────────────────────────────────
+// Multi-location operational benefits (task focus: group-level standardization)
+// ────────────────────────────────────────────────────────────────────
+
+export const MULTI_LOCATION: {
+  heading: string;
+  intro: string;
+  benefits: OpsBenefit[];
+  proof: string[];
+} = {
+  heading: "One Denture Standard Across Every Location",
+  intro:
+    "Running removables across multiple offices usually means fit that varies by chair, turnaround you can't forecast, and quality that depends on whichever lab or technician a location happens to use. AvaDent replaces that with one repeatable digital program — standardized records, centralized CAD design, archived digital files, and case-level QC — so every location delivers to the same standard.",
+  benefits: [
+    {
+      key: "records",
+      title: "Standardized records",
+      body: "Every office submits the same way — conventional or digital. One intake standard means one quality baseline, no matter where a case starts.",
+    },
+    {
+      key: "design",
+      title: "Centralized CAD design",
+      body: "Our removable-software CAD team — or yours — designs every case to the same protocol, so fit and esthetics don't drift from location to location.",
+    },
+    {
+      key: "files",
+      title: "Stored digital files",
+      body: "Every case is archived as a digital file. Any location can order an exact re-mill without new records or a fresh impression appointment.",
+    },
+    {
+      key: "qc",
+      title: "Case-level QC",
+      body: "Every prosthesis is scanned and measured against its design file before it ships — the same verification on every case, at every site.",
+    },
+  ],
+  proof: [
+    "Compatible with conventional or digital records",
+    "Same design protocol across all offices",
+    "Case files stored for exact replacements",
+  ],
+};
 
 // ────────────────────────────────────────────────────────────────────
 // The four pillars (per task content_requests)
@@ -88,7 +136,7 @@ export const PILLARS: Pillar[] = [
     label: "Chair Time",
     heading: "Save 6-7 Appointments Per Case",
     body:
-      "Traditional dentures take up to 9-10 appointments with records, try-ins, adjustments, and remakes. AvaDent's digital workflow compresses the entire process into just 2-3 efficient appointments, because your records are digitized, the design is CAD-verified against the original file, and our Adaptive Occlusion software delivers a predictable fit the very first time. Practices routinely tell us they've reclaimed full days per week for higher-value procedures, while their patients get a finished prosthesis in a fraction of the time. Less chair time. Fewer remakes. More room on your schedule for the cases that move your practice forward.",
+      "Traditional dentures take up to 9-10 appointments with records, try-ins, adjustments, and remakes. AvaDent's digital workflow compresses the process into just 2-3 efficient appointments, because your records are digitized, the design is CAD-verified against the original file, and our Adaptive Occlusion software delivers a predictable fit the very first time. For a multi-location group, fewer visits per case means fewer adjustment and remake loops clogging the schedule — and more predictable capacity planning across every office. Less chair time. Fewer remakes. More room for the cases that move each practice forward.",
     image: "/images/wf-woman-tablet.webp",
     imageAlt:
       "Dental professional reviewing digital denture workflow on a tablet",
@@ -102,7 +150,7 @@ export const PILLARS: Pillar[] = [
   {
     anchorId: "no-pop-offs",
     label: "No Pop-Offs",
-    heading: "Monolithic One-Piece Design — 8× Stronger",
+    heading: "Monolithic One-Piece Design — Up to 8× Stronger",
     body:
       "Conventional and bonded dentures fail at the teeth-to-base junction. AvaDent's patented monolithic design is milled from a single cross-linked puck — no bonded teeth, no glue lines, no gingival seam. That means up to 8× more fracture resistance, no pop-offs (even on overdenture and hybrid cases), and seamless teeth-to-denture transitions that feel natural to the patient. Whether you're treating Class 1, 2, or 3 arches or delivering a LOCATOR FIXED® or AvaMax Fixed Hybrid case, the prosthesis behaves as one continuous unit — because it is.",
     image: "/images/puck-split.webp",
@@ -259,6 +307,11 @@ export const FAQS: FAQ[] = [
     question: "Can I use AvaDent for Class 1, 2, and 3 patients?",
     answer:
       "Yes. The monolithic design and cross-linked material handle all three classifications with no limitations, including challenging over-denture and implant-retained cases.",
+  },
+  {
+    question: "Can AvaDent standardize denture cases across multiple locations?",
+    answer:
+      "Yes. Every location submits records the same way, cases are designed to one CAD protocol, and each prosthesis is QC'd against its design file before shipping — so fit and quality stay consistent no matter which office starts the case. Because files are stored digitally, any location can reorder an exact replacement without new records.",
   },
   {
     question: "What does onboarding look like?",

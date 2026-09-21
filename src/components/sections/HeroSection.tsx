@@ -13,8 +13,9 @@ import { FormCard } from "@/components/FormCard";
  * direction is product-photography-forward. Every LP ships with form in
  * hero AND form in final contact section.
  *
- * Brand reference: https://avadent.com live hero — "Built for Life's Hardest
- * Hits" headline w/ Montserrat 800, yellow accent, dental-environment bg.
+ * Positioning (task focus): lead with the multi-location *program* promise —
+ * one denture standard across every office — then substantiate with the
+ * verified product/workflow claims. Montserrat 800, yellow accent, clinical bg.
  */
 export function HeroSection() {
   return (
@@ -47,24 +48,26 @@ export function HeroSection() {
           </div>
 
           <h1 className="text-[3.25rem] sm:text-7xl lg:text-[5.25rem] xl:text-[5.75rem] leading-[0.95] font-black text-white tracking-tight">
-            Built{" "}
-            <span className="text-[var(--color-accent)] italic">Different</span>
+            One Program.{" "}
+            <span className="text-[var(--color-accent)] italic">
+              Every Location.
+            </span>
           </h1>
 
           <div className="space-y-2 max-w-xl">
             <p className="text-base md:text-lg lg:text-xl text-white/85 leading-snug font-light">
-              Digital dentistry delivered by the team that invented the
-              category.
+              The digital denture program multi-location groups run to
+              standardize fit, quality, and turnaround at every chair.
             </p>
             <p className="text-base md:text-lg lg:text-xl leading-snug">
               <span className="font-bold text-[var(--color-accent)]">
-                No pop-offs. Biohygienic by design.
+                2-3 appointments. Up to 8× stronger. No pop-offs.
               </span>
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-white/85 pt-1">
-            <Badge>Trusted by thousands of clinicians</Badge>
+            <Badge>Repeatable across every location</Badge>
             <Badge>Monolithic one-piece design</Badge>
             <Badge>Made in the USA</Badge>
           </div>

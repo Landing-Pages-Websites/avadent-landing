@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s | AvaDent",
   },
   description:
-    "Monolithic, precision-milled digital dentures for dental professionals. 8× stronger, no pop-offs, 2-3 appointments per case. For GPs, prosthodontists, implantologists, surgeons, and labs.",
+    "The digital denture program for multi-location dental groups — one standard across every location. Monolithic, precision-milled: up to 8× stronger, no pop-offs, 2-3 appointments per case. For GPs, prosthodontists, implantologists, surgeons, and labs.",
   icons: {
     icon: "/icon.png",
     apple: "/apple-icon.png",
