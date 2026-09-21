@@ -103,7 +103,6 @@ export function MultiLocationSection() {
 /** One outline icon family (2px stroke) mapped to each operational benefit. */
 function BenefitIcon({ name }: { name: string }): React.ReactElement {
   const common = {
-    className: "w-6 h-6",
     viewBox: "0 0 24 24",
     fill: "none",
     stroke: "currentColor",
@@ -114,7 +113,7 @@ function BenefitIcon({ name }: { name: string }): React.ReactElement {
   };
   if (name === "records") {
     return (
-      <svg {...common}>
+      <svg {...common} className="w-6 h-6">
         <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
         <rect x="9" y="3" width="6" height="4" rx="1" />
         <path d="M9 12h6M9 16h4" />
@@ -123,7 +122,7 @@ function BenefitIcon({ name }: { name: string }): React.ReactElement {
   }
   if (name === "design") {
     return (
-      <svg {...common}>
+      <svg {...common} className="w-6 h-6">
         <rect x="4" y="4" width="16" height="16" rx="2" />
         <rect x="9" y="9" width="6" height="6" />
         <path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2" />
@@ -132,7 +131,7 @@ function BenefitIcon({ name }: { name: string }): React.ReactElement {
   }
   if (name === "files") {
     return (
-      <svg {...common}>
+      <svg {...common} className="w-6 h-6">
         <ellipse cx="12" cy="5" rx="8" ry="3" />
         <path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5" />
         <path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6" />
@@ -140,7 +139,7 @@ function BenefitIcon({ name }: { name: string }): React.ReactElement {
     );
   }
   return (
-    <svg {...common}>
+    <svg {...common} className="w-6 h-6">
       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
       <path d="m9 12 2 2 4-4" />
     </svg>
