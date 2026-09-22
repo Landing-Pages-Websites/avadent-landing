@@ -44,7 +44,7 @@ function formatPhone(value: string): string {
 // values like "foo@bar" are rejected while "qatest+123@gomega.ai" is accepted.
 // The HTML `pattern` below is the exact string form of this regex body — keep
 // the two in sync so browser constraint validation and JS agree.
-const EMAIL_PATTERN = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+[.][A-Za-z]{2,}";
+const EMAIL_PATTERN = "[A-Za-z0-9._%+\\x2D]+@[A-Za-z0-9.\\x2D]+[.][A-Za-z]{2,}";
 const isValidEmail = (v: string) =>
   new RegExp(`^${EMAIL_PATTERN}$`).test(v);
 
