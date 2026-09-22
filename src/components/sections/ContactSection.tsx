@@ -1,4 +1,3 @@
-import { BRAND } from "@/lib/content";
 import { FormCard } from "@/components/FormCard";
 import { Reveal } from "@/components/Reveal";
 
@@ -30,24 +29,6 @@ export function ContactSection() {
             with dashboard access, a product walkthrough, and answer any
             workflow questions — so you can place your first case on your terms.
           </p>
-
-          <div className="pt-2">
-            <div className="bg-white/5 backdrop-blur rounded-xl border border-white/10 p-5 sm:p-6 max-w-md">
-              <p className="eyebrow eyebrow-on-dark text-[11px]">
-                Prefer to talk?
-              </p>
-              <a
-                href={BRAND.phoneHref}
-                className="text-2xl sm:text-3xl font-extrabold text-white hover:text-[var(--color-accent)] transition mt-2 block"
-                style={{ fontFamily: "var(--font-montserrat)" }}
-              >
-                {BRAND.phone}
-              </a>
-              <p className="text-sm text-white/60 mt-1">
-                AvaDent customer service — available during business hours
-              </p>
-            </div>
-          </div>
 
           <p className="text-sm text-white/60 pt-2">
             Patented biohygienic, monolithic prostheses — made in the United States.
