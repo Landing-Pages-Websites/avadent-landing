@@ -44,16 +44,17 @@ function formatPhone(value: string): string {
 // values like "foo@bar" are rejected while "qatest+123@gomega.ai" is accepted.
 // The HTML `pattern` below is the exact string form of this regex body — keep
 // the two in sync so browser constraint validation and JS agree.
-const EMAIL_PATTERN = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}";
+const EMAIL_PATTERN = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+[.][A-Za-z]{2,}";
 const isValidEmail = (v: string) =>
   new RegExp(`^${EMAIL_PATTERN}$`).test(v);
 
 const SUBMIT_ERROR_MESSAGE =
   "Something went wrong sending your request. Please try again in a moment.";
 
-// The established conversion signal: a `form_submission` event on the GTM
-// dataLayer. Called only after the lead API confirms {ok:true}, so it stays
-// fail-closed. Kept out of the React submit path to avoid recursive dispatch.
+// The page's real conversion signal: a `form_submission` event on the GTM
+// dataLayer (GTM-KKC8NTN6). Called only after the lead API confirms {ok:true},
+// so a dropped lead never bills a conversion. This replaces the old native
+// submit dispatch, which MEGA's optimizer.min.js captured UNCONDITIONALLY.
 function fireConversion(formId: string): void {
   if (typeof window === "undefined") return;
   window.dataLayer = window.dataLayer ?? [];
@@ -130,9 +131,10 @@ export function FormCard({
         throw new Error("Submission not confirmed by server.");
       }
       // Fire the conversion ONLY on confirmed success so a dropped lead never
-      // bills one. Push directly to the dataLayer (the GTM/optimizer conversion
-      // trigger) instead of re-dispatching a submit event — dispatching would
-      // re-enter this form's React onSubmit handler and recurse.
+      // bills one. Push directly to the GTM dataLayer (the form_submission
+      // conversion trigger) rather than dispatching a native submit event — a
+      // native submit is caught unconditionally by optimizer.min.js's
+      // document-level capture listener, which would convert even on failures.
       fireConversion(`avadent-${idSuffix}`);
       setSubmitted(true);
     } catch (err) {
@@ -208,22 +210,27 @@ export function FormCard({
 
       <form
         ref={formRef}
-        onSubmit={(e) => {
-          // The real submit path (button requestSubmit or Enter). Never let the
-          // browser navigate; validate natively, then run the fail-closed POST.
-          e.preventDefault();
-          const f = formRef.current;
-          if (f && !f.checkValidity()) {
-            f.reportValidity();
-            return;
-          }
-          void doSubmit();
-        }}
+        // Defensive no-op — must NOT call doSubmit. The button is type="button"
+        // and Enter is handled below, so a native submit never fires. If one
+        // ever did, MEGA's optimizer.min.js has a document-level, capture-phase
+        // "submit" listener that beacons full-PII and converts UNCONDITIONALLY,
+        // before the API confirms. preventDefault does not stop a capture-phase
+        // listener, so the only safe design is to never dispatch a native
+        // submit at all. Do NOT wire this to doSubmit or add requestSubmit().
+        onSubmit={(e) => e.preventDefault()}
         className="space-y-3.5"
         onKeyDown={(e) => {
           if (e.key === "Enter" && (e.target as HTMLElement).tagName !== "TEXTAREA") {
+            // Submit on Enter WITHOUT a native dispatch: validate natively, then
+            // call the async submit directly. Never requestSubmit()/form.submit()
+            // — both fire the native event the optimizer captures.
             e.preventDefault();
-            formRef.current?.requestSubmit();
+            const f = formRef.current;
+            if (f && !f.checkValidity()) {
+              f.reportValidity();
+              return;
+            }
+            void doSubmit();
           }
         }}
       >
@@ -385,8 +392,26 @@ export function FormCard({
           </p>
         )}
 
+        {/*
+          Fail-closed by design — do NOT change this to type="submit" and do NOT
+          route it through form.requestSubmit(). Both dispatch a native submit
+          event that MEGA's optimizer.min.js catches on a document-level,
+          capture-phase listener and converts on UNCONDITIONALLY, before the API
+          confirms — billing dropped leads and beaconing PII on failures. This
+          button stays type="button": it validates natively first, POSTs to the
+          lead API, and fires the conversion (dataLayer form_submission) only
+          after a confirmed {ok:true} (see doSubmit).
+        */}
         <button
-          type="submit"
+          type="button"
+          onClick={() => {
+            const f = formRef.current;
+            if (f && !f.checkValidity()) {
+              f.reportValidity();
+              return;
+            }
+            void doSubmit();
+          }}
           disabled={!canSubmit || submitting || submitted}
           className="w-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] disabled:opacity-60 disabled:cursor-not-allowed text-[var(--color-ink-dark)] px-6 py-3.5 rounded-full font-extrabold text-base transition shadow-md mt-2 tracking-wide uppercase"
           style={{ fontFamily: "var(--font-montserrat)" }}
