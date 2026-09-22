@@ -40,11 +40,25 @@ function formatPhone(value: string): string {
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
-const isValidEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+// RFC-5322-lite email validation. Requires a dotted domain with a real TLD so
+// values like "foo@bar" are rejected while "qatest+123@gomega.ai" is accepted.
+// The HTML `pattern` below is the exact string form of this regex body — keep
+// the two in sync so browser constraint validation and JS agree.
+const EMAIL_PATTERN = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}";
+const isValidEmail = (v: string) =>
+  new RegExp(`^${EMAIL_PATTERN}$`).test(v);
 
 const SUBMIT_ERROR_MESSAGE =
-  "Something went wrong sending your request. Please try again, or call us at " +
-  BRAND.phone + ".";
+  "Something went wrong sending your request. Please try again in a moment.";
+
+// The established conversion signal: a `form_submission` event on the GTM
+// dataLayer. Called only after the lead API confirms {ok:true}, so it stays
+// fail-closed. Kept out of the React submit path to avoid recursive dispatch.
+function fireConversion(formId: string): void {
+  if (typeof window === "undefined") return;
+  window.dataLayer = window.dataLayer ?? [];
+  window.dataLayer.push({ event: "form_submission", form_id: formId, value: 0 });
+}
 
 const ChevronDown = ({ onDark = false }: { onDark?: boolean }) => (
   <svg
@@ -115,11 +129,11 @@ export function FormCard({
       if (res?.ok !== true) {
         throw new Error("Submission not confirmed by server.");
       }
-      // The MEGA optimizer converts on the native submit DOM event. Dispatch it
-      // ONLY on confirmed success so a dropped lead never bills a conversion.
-      formRef.current?.dispatchEvent(
-        new Event("submit", { bubbles: true, cancelable: true }),
-      );
+      // Fire the conversion ONLY on confirmed success so a dropped lead never
+      // bills one. Push directly to the dataLayer (the GTM/optimizer conversion
+      // trigger) instead of re-dispatching a submit event — dispatching would
+      // re-enter this form's React onSubmit handler and recurse.
+      fireConversion(`avadent-${idSuffix}`);
       setSubmitted(true);
     } catch (err) {
       console.error("Form submission failed:", err);
@@ -171,16 +185,6 @@ export function FormCard({
             An AvaDent specialist will reach out shortly to get you set up with
             dashboard access and walk you through your first case.
           </p>
-          <p className="text-sm text-[var(--color-ink-muted)]">
-            Want to talk now? Call{" "}
-            <a
-              href={BRAND.phoneHref}
-              className="font-semibold text-[var(--color-primary)] hover:underline"
-            >
-              {BRAND.phone}
-            </a>
-            .
-          </p>
         </div>
       </div>
     );
@@ -204,15 +208,22 @@ export function FormCard({
 
       <form
         ref={formRef}
-        onSubmit={(e) => e.preventDefault()}
-        noValidate
+        onSubmit={(e) => {
+          // The real submit path (button requestSubmit or Enter). Never let the
+          // browser navigate; validate natively, then run the fail-closed POST.
+          e.preventDefault();
+          const f = formRef.current;
+          if (f && !f.checkValidity()) {
+            f.reportValidity();
+            return;
+          }
+          void doSubmit();
+        }}
         className="space-y-3.5"
         onKeyDown={(e) => {
           if (e.key === "Enter" && (e.target as HTMLElement).tagName !== "TEXTAREA") {
             e.preventDefault();
-            const f = formRef.current;
-            if (f && !f.checkValidity()) { f.reportValidity(); return; }
-            void doSubmit();
+            formRef.current?.requestSubmit();
           }
         }}
       >
@@ -261,6 +272,8 @@ export function FormCard({
             type="email"
             autoComplete="email"
             required
+            pattern={EMAIL_PATTERN}
+            title="Enter a valid email address, e.g. you@company.com"
             placeholder="Work email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -372,21 +385,8 @@ export function FormCard({
           </p>
         )}
 
-        {/*
-          Fail-closed by design — do NOT change this to a raw type="submit".
-          The optimizer converts on the native submit DOM event, so this button
-          stays type="button": it validates first, POSTs to the lead API, and
-          only dispatches submit after a confirmed {ok:true} (see doSubmit).
-          A raw type="submit" would fire the conversion before the API confirms,
-          billing dropped leads. This comment documents the intentional pattern.
-        */}
         <button
-          type="button"
-          onClick={() => {
-            const f = formRef.current;
-            if (f && !f.checkValidity()) { f.reportValidity(); return; }
-            void doSubmit();
-          }}
+          type="submit"
           disabled={!canSubmit || submitting || submitted}
           className="w-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] disabled:opacity-60 disabled:cursor-not-allowed text-[var(--color-ink-dark)] px-6 py-3.5 rounded-full font-extrabold text-base transition shadow-md mt-2 tracking-wide uppercase"
           style={{ fontFamily: "var(--font-montserrat)" }}

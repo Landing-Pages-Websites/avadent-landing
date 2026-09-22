@@ -41,13 +41,9 @@ export const BRAND = {
   heroSubhead:
     "AvaDent is the digital denture program multi-location groups run to standardize fit, quality, and turnaround at every chair. Monolithic, precision-milled prostheses delivered in 2-3 appointments — not 9-10. Up to 8× stronger. No pop-offs. Biohygienic by design.",
   heroTrust: "One denture standard across every location — same records, same design protocol, same QC.",
-  phone: "(480) 275-7144",
-  phoneDigits: "4802757144",
-  phoneHref: "tel:+14802757144",
   email: "customerserviceus@avadent.com",
   primaryCtaLabel: "Get Started with AvaDent",
   primaryCtaShort: "Get Started",
-  phoneCtaLabel: "Or call (480) 275-7144",
   ctaSubLabel: "Free consultation · Same-day response",
 } as const;
 
