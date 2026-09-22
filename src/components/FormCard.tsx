@@ -206,27 +206,17 @@ export function FormCard({
 
       <form
         ref={formRef}
-        // Defensive no-op — must NOT call doSubmit. The button is type="button"
-        // and Enter is handled below, so a native submit never fires. If one
-        // ever did, MEGA's optimizer.min.js has a document-level, capture-phase
-        // "submit" listener that beacons full-PII and converts UNCONDITIONALLY,
-        // before the API confirms. preventDefault does not stop a capture-phase
-        // listener, so the only safe design is to never dispatch a native
-        // submit at all. Do NOT wire this to doSubmit or add requestSubmit().
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={(e) => {
+          e.preventDefault();
+          const f = formRef.current;
+          if (f && !f.checkValidity()) { f.reportValidity(); return; }
+          void doSubmit();
+        }}
         className="space-y-3.5"
         onKeyDown={(e) => {
           if (e.key === "Enter" && (e.target as HTMLElement).tagName !== "TEXTAREA") {
-            // Submit on Enter WITHOUT a native dispatch: validate natively, then
-            // call the async submit directly. Never requestSubmit()/form.submit()
-            // — both fire the native event the optimizer captures.
             e.preventDefault();
-            const f = formRef.current;
-            if (f && !f.checkValidity()) {
-              f.reportValidity();
-              return;
-            }
-            void doSubmit();
+            formRef.current?.requestSubmit();
           }
         }}
       >
