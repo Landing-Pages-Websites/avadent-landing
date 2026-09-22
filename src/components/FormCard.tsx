@@ -1,7 +1,11 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { useMegaLeadForm } from "@/hooks/useMegaLeadForm";
+import {
+  EMAIL_PATTERN,
+  isValidEmail,
+  useMegaLeadForm,
+} from "@/hooks/useMegaLeadForm";
 import {
   BUSINESS_TYPES,
   VOLUME_OPTIONS,
@@ -39,14 +43,6 @@ function formatPhone(value: string): string {
   if (digits.length < 7) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
-
-// RFC-5322-lite email validation. Requires a dotted domain with a real TLD so
-// values like "foo@bar" are rejected while "qatest+123@gomega.ai" is accepted.
-// The HTML `pattern` below is the exact string form of this regex body — keep
-// the two in sync so browser constraint validation and JS agree.
-const EMAIL_PATTERN = "[A-Za-z0-9._%+\\x2D]+@[A-Za-z0-9.\\x2D]+[.][A-Za-z]{2,}";
-const isValidEmail = (v: string) =>
-  new RegExp(`^${EMAIL_PATTERN}$`).test(v);
 
 const SUBMIT_ERROR_MESSAGE =
   "Something went wrong sending your request. Please try again in a moment.";
@@ -392,26 +388,8 @@ export function FormCard({
           </p>
         )}
 
-        {/*
-          Fail-closed by design — do NOT change this to type="submit" and do NOT
-          route it through form.requestSubmit(). Both dispatch a native submit
-          event that MEGA's optimizer.min.js catches on a document-level,
-          capture-phase listener and converts on UNCONDITIONALLY, before the API
-          confirms — billing dropped leads and beaconing PII on failures. This
-          button stays type="button": it validates natively first, POSTs to the
-          lead API, and fires the conversion (dataLayer form_submission) only
-          after a confirmed {ok:true} (see doSubmit).
-        */}
         <button
-          type="button"
-          onClick={() => {
-            const f = formRef.current;
-            if (f && !f.checkValidity()) {
-              f.reportValidity();
-              return;
-            }
-            void doSubmit();
-          }}
+          type="submit"
           disabled={!canSubmit || submitting || submitted}
           className="w-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] disabled:opacity-60 disabled:cursor-not-allowed text-[var(--color-ink-dark)] px-6 py-3.5 rounded-full font-extrabold text-base transition shadow-md mt-2 tracking-wide uppercase"
           style={{ fontFamily: "var(--font-montserrat)" }}
