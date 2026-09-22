@@ -43,7 +43,10 @@ function formatPhone(value: string): string {
 // RFC-5322-lite email validation. Requires a dotted domain with a real TLD so
 // values like "foo@bar" are rejected while "qatest+123@gomega.ai" is accepted.
 // The HTML `pattern` below is the exact string form of this regex body — keep
-// the two in sync so browser constraint validation and JS agree.
+// the two in sync so browser constraint validation and JS agree. Hyphens are
+// escaped and the literal dot uses a [.] class so this compiles under BOTH the
+// `u` and the newer `v` RegExp engines browsers use for `pattern`; an
+// uncompilable pattern is silently ignored and would let "foo@bar" through.
 const EMAIL_PATTERN = "[A-Za-z0-9._%+\\x2D]+@[A-Za-z0-9.\\x2D]+[.][A-Za-z]{2,}";
 const isValidEmail = (v: string) =>
   new RegExp(`^${EMAIL_PATTERN}$`).test(v);
@@ -148,6 +151,19 @@ export function FormCard({
     }
   }
 
+  // The ONE submit entry point for both the button and the Enter key. It runs
+  // native constraint validation, then calls the async POST directly — it never
+  // dispatches a native submit event (no requestSubmit/form.submit), so the
+  // optimizer's capture-phase listener can never convert before {ok:true}.
+  const validateAndSubmit = (): void => {
+    const f = formRef.current;
+    if (f && !f.checkValidity()) {
+      f.reportValidity();
+      return;
+    }
+    void doSubmit();
+  };
+
   const wrapperClass =
     variant === "hero"
       ? "bg-white/97 backdrop-blur rounded-2xl shadow-2xl shadow-black/40 border border-white/40 p-6 sm:p-8"
@@ -221,16 +237,9 @@ export function FormCard({
         className="space-y-3.5"
         onKeyDown={(e) => {
           if (e.key === "Enter" && (e.target as HTMLElement).tagName !== "TEXTAREA") {
-            // Submit on Enter WITHOUT a native dispatch: validate natively, then
-            // call the async submit directly. Never requestSubmit()/form.submit()
-            // — both fire the native event the optimizer captures.
+            // Submit on Enter WITHOUT a native dispatch (see validateAndSubmit).
             e.preventDefault();
-            const f = formRef.current;
-            if (f && !f.checkValidity()) {
-              f.reportValidity();
-              return;
-            }
-            void doSubmit();
+            validateAndSubmit();
           }
         }}
       >
@@ -404,14 +413,7 @@ export function FormCard({
         */}
         <button
           type="button"
-          onClick={() => {
-            const f = formRef.current;
-            if (f && !f.checkValidity()) {
-              f.reportValidity();
-              return;
-            }
-            void doSubmit();
-          }}
+          onClick={validateAndSubmit}
           disabled={!canSubmit || submitting || submitted}
           className="w-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] disabled:opacity-60 disabled:cursor-not-allowed text-[var(--color-ink-dark)] px-6 py-3.5 rounded-full font-extrabold text-base transition shadow-md mt-2 tracking-wide uppercase"
           style={{ fontFamily: "var(--font-montserrat)" }}
