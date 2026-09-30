@@ -58,6 +58,7 @@ export const BUSINESS_TYPES = [
   "Oral Surgery",
   "Periodontist",
   "Prosthodontist",
+  "Patient",
   "None of the above",
 ] as const;
 
